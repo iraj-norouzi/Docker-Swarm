@@ -1,0 +1,12 @@
+{manager}
+docker swarm init
+docker node ls
+docker info | grep -i swarm
+
+{worker}
+docker swarm join-token worker
+docker swarm join-token manager
+docker info | grep -i swarm
+docker swarm leave
+docker swarm rm {docker node ls ID}
+
