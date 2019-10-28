@@ -2,6 +2,17 @@
 docker swarm init
 docker node ls
 docker info | grep -i swarm
+docker node inspect hostname(docker node ls)
+docker node promote worker1 worker2
+docker node demote worker1 worker2
+docker service --help
+docker service create -d alpine ping 185.238.92.102
+docker service ls
+docker service inspect vibas0la1f7o
+docker service logs -f vibas0la1f7o
+docker service create -d --replicas 4   alpine ping 8.8.8.8
+docker service scale 5ftr44arskr1=3
+docker service ps 5ftr44arskr1
 
 {worker}
 docker swarm join-token worker
@@ -9,4 +20,5 @@ docker swarm join-token manager
 docker info | grep -i swarm
 docker swarm leave
 docker swarm rm {docker node ls ID}
+docker node inspect hostname(docker node ls)
 
