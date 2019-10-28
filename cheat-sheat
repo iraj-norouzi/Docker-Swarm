@@ -15,7 +15,8 @@ docker service scale 5ftr44arskr1=3
 docker service ps 5ftr44arskr1
 docker service create -d -p 80:80 nginx
 docker visualizer link {https://github.com/dockersamples/docker-swarm-visualizer}
-
+docker service create --replicas=3 --constraint="node.role==manager" alpine ping 8.8.8.8
+docker service create --replicas=3 --constraint="node.role==worker" alpine ping 8.8.8.8
 {worker}
 docker swarm join-token worker
 docker swarm join-token manager
