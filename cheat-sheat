@@ -13,7 +13,7 @@ docker service logs -f vibas0la1f7o
 docker service create -d --replicas 4   alpine ping 8.8.8.8
 docker service scale 5ftr44arskr1=3
 docker service ps 5ftr44arskr1
-
+docker service create -d -p 80:80 nginx
 {worker}
 docker swarm join-token worker
 docker swarm join-token manager
