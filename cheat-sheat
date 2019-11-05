@@ -33,3 +33,4 @@ docker info | grep -i swarm
 docker swarm leave
 docker swarm rm {docker node ls ID}
 docker service create --replicas=3 --constraint="node.hostname == worker1" -d nginx
+update command "https://docs.docker.com/engine/reference/commandline/service_update/"
