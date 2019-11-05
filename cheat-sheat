@@ -32,5 +32,4 @@ docker swarm join-token manager
 docker info | grep -i swarm
 docker swarm leave
 docker swarm rm {docker node ls ID}
-docker node inspect hostname(docker node ls)
-
+docker service create --replicas=3 --constraint="node.hostname == worker1" -d nginx
