@@ -26,6 +26,14 @@ docker service create \
 docker node update --availability=pause-active-drain  worker2
 docker service create --replicas=3 --constraint="node.role==manager" alpine ping 8.8.8.8
 docker service create --replicas=3 --constraint="node.role==worker" alpine ping 8.8.8.8
+docker secret create dbpass -
+docker secret ls
+docker secret create passfile password {password is a file and content password}
+docker exec -it 5e264bf14236 sh  {cd /run/secrets/passfile}
+
+docker service create -d --constraint="node.role==worker" --secret passfile -e MYSQL_ROOT_PASSWORD_FILE=/run/secrets/passfile mysql
+
+
 {worker}
 docker swarm join-token worker
 docker swarm join-token manager
