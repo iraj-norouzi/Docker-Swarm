@@ -32,7 +32,9 @@ docker secret create passfile password {password is a file and content password}
 docker exec -it 5e264bf14236 sh  {cd /run/secrets/passfile}
 
 docker service create -d --constraint="node.role==worker" --secret passfile -e MYSQL_ROOT_PASSWORD_FILE=/run/secrets/passfile mysql
-
+docker network create -d overlay --attachable test1
+docker network create -d overlay test
+docker service create -d --network test image_name
 
 {worker}
 docker swarm join-token worker
