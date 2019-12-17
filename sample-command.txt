@@ -6,3 +6,5 @@ docker network create -d overlay --attachable vnmtzks9900k
 docker service  ps
 docker exec -it 7b40530f4dfc /bin/bash
 
+docker run -d --hostname igap-rabbit --name rabbit  --restart=always --network=host -p 15672:15672 -p 5672:5672 -e RABBITMQ_DEFAULT_USER=igap -e RABBITMQ_DEFAULT_PASS=igap rabbitmq:3-management
+docker  run -ti --privileged=true  --restart=always --network=host 10.11.12.79:5000/igap:register
