@@ -1,0 +1,41 @@
+version: '3'
+services:
+  core:
+    image: 10.11.12.79:5000/igap:1.0
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker
+#          - engine.labels.operatingsystem == ubuntu 14.04
+#        preferences:
+#          - spread: node.labels.zone
+
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - rabbitmq
+    hostname: CORE_IGAP
+    stdin_open: true
+    tty: true
+#    privileged: true
+#    restart: "always"
+    ports:
+        - '7072:7072'
+        - '8739:8739'
+        - '7272:7272'
+#    command: bash -c "php /home/iGap/index.php start -d "
+#    network: host
+#    network_mode: "host"
+#     network_mode: "host"
+#    volumes:
+#     - /var/run/docker.sock:/var/run/docker.sock
+#     - /proc/:/host/proc/:ro
+#     - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+#
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 50M
+#        reservations:
+#          memory: 20M
+

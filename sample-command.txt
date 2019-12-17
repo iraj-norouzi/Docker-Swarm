@@ -1,0 +1,8 @@
+docker  service update --image 10.11.12.79:5000/igap:1.0 igap_core
+docker service scale igap_core=4
+docker stack deploy --compose-file docker-compose.yml igap
+
+docker network create -d overlay --attachable vnmtzks9900k
+docker service  ps
+docker exec -it 7b40530f4dfc /bin/bash
+
