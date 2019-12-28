@@ -33,3 +33,6 @@ ansible all -m shell -a "sysctl -w  net.ipv4.ip_local_port_range='10000 60999';s
 watch -d netstat -ntu
 
 
+ansible worker -m shell  -a "echo 5 > /proc/sys/net/ipv4/tcp_fin_timeout;echo 15000 65000 > /proc/sys/net/ipv4/ip_local_port_range;echo 1 >/proc/sys/net/ipv4/tcp_tw_recycle;echo 1 > /proc/sys/net/ipv4/tcp_tw_reuse"
+ 
+ ansible worker -m shell  -a "cat /proc/sys/net/ipv4/tcp_fin_timeout;cat /proc/sys/net/ipv4/ip_local_port_range;cat /proc/sys/net/ipv4/tcp_tw_recycle;cat /proc/sys/net/ipv4/tcp_tw_reuse"
