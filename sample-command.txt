@@ -85,3 +85,4 @@ net.ipv4.tcp_rmem = 4096 4096 16777216
 net.ipv4.tcp_wmem = 4096 4096 16777216
 
 ################################################
+ansible all -m shell -a "docker ps -aq -f name=igap_core | xargs -t -I {} docker exec  {} bash -c  'cd /home/iGap/;php index.php status' "  | less
