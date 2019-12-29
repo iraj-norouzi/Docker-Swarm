@@ -39,7 +39,9 @@ ansible worker -m shell  -a "echo 5 > /proc/sys/net/ipv4/tcp_fin_timeout;echo 15
 
 ansible all -m shell -a " echo 200 > /proc/sys/net/ipv4/tcp_keepalive_time"
 ansible all -m shell -a " echo 1 > cat /proc/sys/net/ipv4/tcp_tw_reuse"
-
+echo 1024 65535 > /proc/sys/net/ipv4/ip_local_port_range
+echo 15 > /proc/sys/net/ipv4/tcp_fin_timeout
+echo 15 > /proc/sys/net/ipv4/tcp_keepalive_intvl
 ##########################################################################
 vm.swappiness = 10
 vm.dirty_ratio = 60
@@ -57,7 +59,7 @@ net.core.wmem_max = 12582912
 net.core.netdev_max_backlog = 65536
 net.core.optmem_max = 25165824
 
-
+echo 30 > /proc/sys/net/ipv4/tcp_fin_timeout
 # WorkerMan Effect
 net.netfilter.nf_conntrack_max = 2621440
 net.core.somaxconn = 65535
