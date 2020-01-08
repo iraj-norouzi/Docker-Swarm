@@ -6,12 +6,13 @@ docker network create -d overlay --attachable vnmtzks9900k
 docker service  ps
 docker exec -it 7b40530f4dfc /bin/bash
 
-docker run -d --hostname igap-rabbit --name rabbit  --restart=always --network=host -p 15672:15672 -p 5672:5672 -e ansible worker -m copy -a "src=/etc/docker/daemon.json  dest=/etc/docker/daemon.json"
+docker run -d --hostname igap-rabbit --name rabbit  --restart=always  -p 15672:15672 -p 5672:5672 -e RABBITMQ_DEFAULT_USER=igap -e RABBITMQ_DEFAULT_PASS=igap rabbitmq:3-management 
+ansible worker -m copy -a "src=/etc/docker/daemon.json  dest=/etc/docker/daemon.json"
  1115  ansible all -m shell -a "systemctl restart docker;systemctl status docker"
  1116  ansible all -m shell -a "docker ps -aq | xargs -I {} docker logs  {}"
  1117  ansible worker -m shell -a "docker ps -aq | xargs -I {} docker logs  {}"
  1118  ansible master -m shell -a "docker ps -aq | xargs -I {} docker logs  {}"
-RABBITMQ_DEFAULT_USER=igap -e RABBITMQ_DEFAULT_PASS=igap rabbitmq:3-management
+
 docker  run -ti --privileged=true --name register --hostname register  --restart=always -p 8739:8739 -p 1236:1236 -p 7072:7072 -p 7272:7272 10.11.12.79:5000/igap:register
 
 
