@@ -87,3 +87,7 @@ net.ipv4.tcp_wmem = 4096 4096 16777216
 
 ################################################
 ansible all -m shell -a "docker ps -aq -f name=igap_core | xargs -t -I {} docker exec  {} bash -c  'cd /home/iGap/;php index.php status' "  | less
+
+ansible all  -m shell -a " sysctl -w kernel.core_pattern=/dev/null "
+cd /tmp/swarmpit/
+docker stack deploy --compose-file docker-compose.yml swarmpit
