@@ -91,3 +91,43 @@ ansible all -m shell -a "docker ps -aq -f name=igap_core | xargs -t -I {} docker
 ansible all  -m shell -a " sysctl -w kernel.core_pattern=/dev/null "
 cd /tmp/swarmpit/
 docker stack deploy --compose-file docker-compose.yml swarmpit
+
+
+####################################################
+
+
+
+node1_id=$(docker node list | grep worker1 | awk '{print $1}')
+docker node update --label-add type=primary ${node1_id?}
+
+In the above example, a label called primary has been added to the worker1. Using this label we can apply constraints to the Docker Swarm deployment of the PostgreSQL stack.
+
+Note: We did not apply a constraint for replicas as we can just use the inverse constraint:
+
+node.labels.type != primary
+
+
+
+    deploy:
+      placement:
+        constraints:
+        - node.labels.type == primary
+        - node.role == worker
+        
+            deploy:
+      placement:
+        constraints:
+        - node.labels.type != primary
+        - node.role == worker
+        
+        
+        OR   
+        
+        
+        
+        
+            deploy:
+      placement:
+        constraints:
+        - node.labels.type != primary
+        - node.role == worker
